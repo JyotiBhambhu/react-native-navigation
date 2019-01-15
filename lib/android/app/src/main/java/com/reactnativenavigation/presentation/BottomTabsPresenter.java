@@ -5,8 +5,8 @@ import android.support.annotation.IntRange;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState;
 import com.reactnativenavigation.anim.BottomTabsAnimator;
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigation;
 import com.reactnativenavigation.parse.AnimationsOptions;
 import com.reactnativenavigation.parse.BottomTabsOptions;
 import com.reactnativenavigation.parse.Options;
@@ -137,7 +137,7 @@ public class BottomTabsPresenter {
     }
 
     private void applyBottomTabsOptions(BottomTabsOptions options, AnimationsOptions animationsOptions) {
-        bottomTabs.setTitleState(options.titleDisplayMode.get(TitleState.SHOW_WHEN_ACTIVE));
+        bottomTabs.setTitleState(options.titleDisplayMode.get(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE));
         bottomTabs.setBackgroundColor(options.backgroundColor.get(Color.WHITE));
         if (options.currentTabIndex.hasValue()) {
             int tabIndex = options.currentTabIndex.get();

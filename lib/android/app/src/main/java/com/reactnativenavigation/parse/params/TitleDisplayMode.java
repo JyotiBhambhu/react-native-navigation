@@ -2,12 +2,13 @@ package com.reactnativenavigation.parse.params;
 
 import android.support.annotation.NonNull;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState;
+
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigation;
 
 import javax.annotation.Nullable;
 
 public enum TitleDisplayMode {
-    ALWAYS_SHOW(TitleState.ALWAYS_SHOW), SHOW_WHEN_ACTIVE(TitleState.SHOW_WHEN_ACTIVE), ALWAYS_HIDE(TitleState.ALWAYS_HIDE), UNDEFINED(null);
+    ALWAYS_SHOW(AHBottomNavigation.TitleState.ALWAYS_SHOW), SHOW_WHEN_ACTIVE(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE), ALWAYS_HIDE(AHBottomNavigation.TitleState.ALWAYS_HIDE), UNDEFINED(null);
 
     public static TitleDisplayMode fromString(String mode) {
         switch (mode) {
@@ -22,9 +23,9 @@ public enum TitleDisplayMode {
         }
     }
 
-    @Nullable private TitleState state;
+    @Nullable private AHBottomNavigation.TitleState state;
 
-    TitleDisplayMode(@Nullable TitleState state) {
+    TitleDisplayMode(@Nullable AHBottomNavigation.TitleState state) {
         this.state = state;
     }
 
@@ -32,12 +33,12 @@ public enum TitleDisplayMode {
         return state != null;
     }
 
-    public TitleState get(@NonNull TitleState defaultValue) {
+    public AHBottomNavigation.TitleState get(@NonNull AHBottomNavigation.TitleState defaultValue) {
         return state == null ? defaultValue : state;
     }
 
     @NonNull
-    public TitleState toState() {
+    public AHBottomNavigation.TitleState toState() {
         if (state == null) throw new RuntimeException("TitleDisplayMode is undefined");
         return state;
     }

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigation;
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigationItem;
 import com.reactnativenavigation.parse.BottomTabOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.BottomTabPresenter;
@@ -150,6 +150,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
             return new AHBottomNavigationItem(
                     options.text.get(""),
                     imageLoader.loadIcon(getActivity(), options.icon.get()),
+                    imageLoader.loadIcon(getActivity(), options.selectedIcon.get()),
                     options.testId.get("")
             );
         });

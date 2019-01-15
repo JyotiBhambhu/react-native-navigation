@@ -6,8 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigation;
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigationItem;
 import com.reactnativenavigation.utils.CompatUtils;
 
 @SuppressLint("ViewConstructor")
@@ -79,6 +80,14 @@ public class BottomTabs extends AHBottomNavigation {
         AHBottomNavigationItem item = getItem(index);
         if (!item.getDrawable(getContext()).equals(icon)) {
             item.setDrawable(icon);
+            refresh();
+        }
+    }
+
+    public void setSelectedIcon(int index, Drawable icon) {
+        AHBottomNavigationItem item = getItem(index);
+        if (!item.getSelectedDrawable(getContext()).equals(icon)) {
+            item.setSelectedDrawable(icon);
             refresh();
         }
     }
