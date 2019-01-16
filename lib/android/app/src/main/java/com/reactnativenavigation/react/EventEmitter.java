@@ -15,6 +15,7 @@ public class EventEmitter {
 	private static final String ComponentDidDisappear   = "RNN.ComponentDidDisappear";
 	private static final String NavigationButtonPressed = "RNN.NavigationButtonPressed";
     private static final String ModalDismissed          = "RNN.ModalDismissed";
+    private static final String BottomTabFABSelected    = "RNN.BottomTabFABSelected";
 
 	private final RCTDeviceEventEmitter emitter;
 
@@ -67,6 +68,10 @@ public class EventEmitter {
         event.putInt("modalsDismissed", modalsDismissed);
         emit(ModalDismissed, event);
     }
+
+    public void emitBottomTabFABSelected() {
+		emit(BottomTabFABSelected);
+	}
 
 	private void emit(String eventName) {
 		emit(eventName, Arguments.createMap());
