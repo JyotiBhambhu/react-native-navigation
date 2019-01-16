@@ -26,5 +26,5 @@
 
 - (void)sendModalsDismissedEvent:(NSString *)componentId numberOfModalsDismissed:(NSNumber *)modalsDismissed;
 
-
+-(void)sendBottomTabFABSelected;
 @end
