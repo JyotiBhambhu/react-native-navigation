@@ -120,7 +120,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    eventEmitter.emitBottomTabSelected(bottomTabs.getCurrentItem(), -1);
+                    eventEmitter.emitBottomTabFABSelected();
                 }
             });
             TextView textView = new TextView(getActivity());

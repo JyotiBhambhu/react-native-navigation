@@ -67,4 +67,9 @@ export class NativeEventsReceiver {
   public registerBottomTabSelectedListener(callback: (data: BottomTabSelectedEvent) => void): EmitterSubscription {
     return this.emitter.addListener('RNN.BottomTabSelected', callback);
   }
+
+  public registerBottomTabFABSelectedListener(callback: () => void): EmitterSubscription {
+    return this.emitter.addListener('RNN.BottomTabFABSelected', callback);
+  }
+
 }
