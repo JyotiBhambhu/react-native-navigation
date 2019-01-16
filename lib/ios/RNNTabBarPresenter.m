@@ -27,7 +27,6 @@
 - (void)setupFABContainerView: (NSMutableDictionary*)fabButtonDict onTabBarController: (UITabBarController*)tabBarController withInitialOptions: (RNNNavigationOptions *)initialOptions {
 	
 	_FABContainerView = [[UIView alloc] init];
-//	CGFloat FABButtonWidth = [[fabButtonDict valueForKey:@"FABWidth"] floatValue];
 	CGFloat FABButtonHeight = [[fabButtonDict valueForKey:@"FABHeight"] floatValue];
 	
 	CGFloat screenWidth = tabBarController.view.frame.size.width;
@@ -37,15 +36,14 @@
 	CGFloat bottomPadding = 10.0;
 	
 	CGFloat notchRadius = [initialOptions.bottomTabs.notchRadius getWithDefaultValue: 50.0];
-
+	
 	if (@available(iOS 11.0, *)) {
 		UIWindow *window = UIApplication.sharedApplication.keyWindow;
 		bottomPadding = window.safeAreaInsets.bottom;
 	}
-//	_FABContainerView.frame = CGRectMake((screenWidth/2) - notchRadius, screenHeight - tabBarHeight - (FABButtonHeight/2), notchRadius *2, tabBarHeight + FABButtonHeight/2);
-
+	
 	_FABContainerView.frame = CGRectMake((screenWidth/2) - notchRadius, screenHeight - tabBarHeight - (FABButtonHeight/2) - bottomPadding, notchRadius *2, tabBarHeight + FABButtonHeight/2);
-
+	
 	
 	[_FABContainerView setBackgroundColor:[UIColor clearColor]];
 	
@@ -56,7 +54,7 @@
 	
 	UIView *notchView = [[UIView alloc] initWithFrame:CGRectMake(0, FABButtonHeight/2, notchRadius * 2, notchRadius + 1.0)];
 	[notchView setBackgroundColor:[UIColor clearColor]];
-
+	
 	[_FABContainerView addSubview:notchView];
 	
 	
@@ -88,26 +86,21 @@
 	
 	_FABButton = [[UIButton alloc] init];
 	[_FABButton addTarget:self
-			   action:@selector(FABButtonTapped)
-	 forControlEvents:UIControlEventTouchUpInside];
+				   action:@selector(FABButtonTapped)
+		 forControlEvents:UIControlEventTouchUpInside];
 	
 	CGFloat FABButtonWidth = [[fabButton valueForKey:@"FABWidth"] floatValue];
 	CGFloat FABButtonHeight = [[fabButton valueForKey:@"FABHeight"] floatValue];
 	CGFloat notchRadius = [initialOptions.bottomTabs.notchRadius getWithDefaultValue: 50.0];
-	
-//	CGFloat screenWidth = tabBarController.view.frame.size.width;
-//	CGFloat screenHeight = tabBarController.view.frame.size.height;
-//
-//	CGFloat tabBarHeight = tabBarController.tabBar.frame.size.height;
 	CGFloat bottomPadding = 10.0;
+	
 	if (@available(iOS 11.0, *)) {
 		UIWindow *window = UIApplication.sharedApplication.keyWindow;
 		bottomPadding = window.safeAreaInsets.bottom;
 	}
-//	_FABButton.frame = CGRectMake((screenWidth/2) - (FABButtonWidth/2), (screenHeight) - tabBarHeight - FABButtonHeight/2 - bottomPadding , FABButtonWidth, FABButtonHeight);
-
+	
 	_FABButton.frame = CGRectMake(notchRadius - (FABButtonWidth/2), 0 , FABButtonWidth, FABButtonHeight);
-
+	
 	//Clip/Clear the other pieces whichever outside the rounded corner
 	_FABButton.clipsToBounds = YES;
 	
@@ -119,13 +112,14 @@
 	
 	//set Button Title
 	[_FABButton setTitle:[[TextParser parse:fabButton key:@"FABText"] getWithDefaultValue:@"Sell car"] forState:UIControlStateNormal];
-
+	
 	//set Button Title color
 	[_FABButton setTitleColor:[[ColorParser parse:fabButton key:@"FABTextColor"] getWithDefaultValue:[UIColor whiteColor]] forState:UIControlStateNormal];
 	
 	//set Button Title fontfamily
 	_FABButton.titleLabel.font = [UIFont fontWithName:[[TextParser parse:fabButton key:@"FABFontFamily"] getWithDefaultValue:[UIFont systemFontOfSize:12.0]] size:[[fabButton valueForKey:@"FABFontSize"] floatValue]];
 	
+	//add shadow on FABButton
 	_FABButton.layer.shadowColor = [UIColor blackColor].CGColor;
 	_FABButton.layer.shadowOffset = CGSizeMake(0, -2.5);
 	_FABButton.layer.shadowOpacity = 0.25;
@@ -147,6 +141,9 @@
 	[tabBarController rnn_setTabBarTranslucent:[options.bottomTabs.translucent getWithDefaultValue:NO]];
 	[tabBarController rnn_setTabBarHideShadow:[options.bottomTabs.hideShadow getWithDefaultValue:NO]];
 	[tabBarController rnn_setTabBarStyle:[RCTConvert UIBarStyle:[options.bottomTabs.barStyle getWithDefaultValue:@"default"]]];
+	
+	[_FABContainerView setHidden:!options.bottomTabs.visible.get];
+	[_FABButton setHidden:!options.bottomTabs.visible.get];
 	[tabBarController rnn_setTabBarVisible:[options.bottomTabs.visible getWithDefaultValue:YES]];
 }
 
