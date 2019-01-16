@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 
+import com.reactnativenavigation.R;
 import com.reactnativenavigation.parse.BottomTabOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.utils.ImageLoader;
@@ -33,8 +34,8 @@ public class BottomTabPresenter {
         this.bottomTabFinder = new BottomTabFinder(tabs);
         this.imageLoader = imageLoader;
         this.defaultOptions = defaultOptions;
-        defaultSelectedTextColor = defaultOptions.bottomTabOptions.selectedIconColor.get(ContextCompat.getColor(context, com.aurelhubert.ahbottomnavigation.R.color.colorBottomNavigationAccent));
-        defaultTextColor = defaultOptions.bottomTabOptions.iconColor.get(ContextCompat.getColor(context, com.aurelhubert.ahbottomnavigation.R.color.colorBottomNavigationInactive));
+        defaultSelectedTextColor = defaultOptions.bottomTabOptions.selectedIconColor.get(ContextCompat.getColor(context, R.color.colorBottomNavigationAccent));
+        defaultTextColor = defaultOptions.bottomTabOptions.iconColor.get(ContextCompat.getColor(context, R.color.colorBottomNavigationInactive));
     }
 
     public void setDefaultOptions(Options defaultOptions) {
@@ -76,6 +77,12 @@ public class BottomTabPresenter {
                 @Override
                 public void onComplete(@NonNull Drawable drawable) {
                     bottomTabs.setIcon(index, drawable);
+                }
+            });
+            if (bto.selectedIcon.hasValue()) imageLoader.loadIcon(context, bto.selectedIcon.get(), new ImageLoadingListenerAdapter() {
+                @Override
+                public void onComplete(@NonNull Drawable drawable) {
+                    bottomTabs.setSelectedIcon(index, drawable);
                 }
             });
         }
