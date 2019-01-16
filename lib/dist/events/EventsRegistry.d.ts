@@ -16,6 +16,7 @@ export declare class EventsRegistry {
     registerComponentDidDisappearListener(callback: (event: ComponentDidDisappearEvent) => void): EmitterSubscription;
     registerCommandCompletedListener(callback: (event: CommandCompletedEvent) => void): EmitterSubscription;
     registerBottomTabSelectedListener(callback: (event: BottomTabSelectedEvent) => void): EmitterSubscription;
+    registerBottomTabFABSelectedListener(callback: () => void): EmitterSubscription;
     registerNavigationButtonPressedListener(callback: (event: NavigationButtonPressedEvent) => void): EmitterSubscription;
     registerModalDismissedListener(callback: (event: ModalDismissedEvent) => void): EmitterSubscription;
     registerSearchBarUpdatedListener(callback: (event: SearchBarUpdatedEvent) => void): EmitterSubscription;

@@ -14,4 +14,5 @@ export declare class NativeEventsReceiver {
     registerPreviewCompletedListener(callback: (event: PreviewCompletedEvent) => void): EmitterSubscription;
     registerCommandCompletedListener(callback: (data: CommandCompletedEvent) => void): EmitterSubscription;
     registerBottomTabSelectedListener(callback: (data: BottomTabSelectedEvent) => void): EmitterSubscription;
+    registerBottomTabFABSelectedListener(callback: () => void): EmitterSubscription;
 }
