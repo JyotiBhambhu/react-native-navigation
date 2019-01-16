@@ -10,9 +10,11 @@
 					defaultOptions:(RNNNavigationOptions *)defaultOptions
 						 presenter:(RNNTabBarPresenter *)presenter
 					  eventEmitter:(RNNEventEmitter *)eventEmitter {
-	self = [self initWithLayoutInfo:layoutInfo childViewControllers:childViewControllers options:options defaultOptions:defaultOptions presenter:presenter];
 	
 	_eventEmitter = eventEmitter;
+
+	self = [self initWithLayoutInfo:layoutInfo childViewControllers:childViewControllers options:options defaultOptions:defaultOptions presenter:presenter];
+	
 	
 	return self;
 }
@@ -31,7 +33,7 @@
 	self.presenter = presenter;
 	[self.presenter bindViewController:self];
 	[self setViewControllers:childViewControllers];
-	[self.presenter applyOptionsOnInit:self.options];
+	[self.presenter applyOptionsOnInit:self.options eventEmitter:_eventEmitter];
 	
 	return self;
 }
