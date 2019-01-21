@@ -197,7 +197,10 @@ public class AHBottomNavigationItem {
 				return ContextCompat.getDrawable(context, selectedDrawableRes);
 			}
 		}
-		return selectedDrawable;
+		if (selectedDrawable != null) {
+			return selectedDrawable;
+		}
+		return drawable;
 	}
 
 
