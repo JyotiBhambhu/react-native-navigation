@@ -12,6 +12,8 @@
 @implementation RNNTabBarPresenter
 
 - (void)applyOptionsOnInit:(RNNNavigationOptions *)initialOptions eventEmitter:(RNNEventEmitter *)eventEmitter {
+	
+	_eventEmitter = eventEmitter;
 	UITabBarController* tabBarController = self.bindedViewController;
 	
 	Dictionary *fabButtonDictionary = initialOptions.bottomTabs.fabButton;
