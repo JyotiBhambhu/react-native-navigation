@@ -23,7 +23,7 @@ public class BottomTabCenterFab {
     public Number fabHeight = new NullNumber();
     public Number fabWidth = new NullNumber();
     public Text fabText = new NullText();
-    public Colour fabBackgroundColor = new NullColor();
+    public Text fabBackgroundImage = new NullText();
     public Colour textColor = new NullColor();
     public Number fontSize = new NullNumber();
     public Number marginBottom = new NullNumber();
@@ -36,7 +36,7 @@ public class BottomTabCenterFab {
         options.fabHeight = NumberParser.parse(json, "FABHeight");
         options.fabWidth = NumberParser.parse(json, "FABWidth");
         options.fabText = TextParser.parse(json, "FABText");
-        options.fabBackgroundColor = ColorParser.parse(json, "FABBackgroundColor");
+        if (json.has("FABBackgroundImage")) options.fabBackgroundImage = TextParser.parse(json.optJSONObject("FABBackgroundImage"), "uri");
         options.textColor = ColorParser.parse(json, "FABTextColor");
         options.fontSize = NumberParser.parse(json, "FABFontSize");
         options.marginBottom = NumberParser.parse(json, "FABMarginBottom");
@@ -50,7 +50,7 @@ public class BottomTabCenterFab {
         if (other.fabHeight.hasValue()) fabHeight = other.fabHeight;
         if (other.fabWidth.hasValue()) fabWidth = other.fabWidth;
         if (other.fabText.hasValue()) fabText = other.fabText;
-        if (other.fabBackgroundColor.hasValue()) fabBackgroundColor = other.fabBackgroundColor;
+        if (other.fabBackgroundImage.hasValue()) fabBackgroundImage = other.fabBackgroundImage;
         if (other.textColor.hasValue()) textColor = other.textColor;
         if (other.fontSize.hasValue()) fontSize = other.fontSize;
         if (other.fontFamily!=null) fontFamily = other.fontFamily;
@@ -61,7 +61,7 @@ public class BottomTabCenterFab {
         if (!fabHeight.hasValue()) fabHeight = defaultOptions.fabHeight;
         if (!fabWidth.hasValue()) fabWidth = defaultOptions.fabWidth;
         if (!fabText.hasValue()) fabText = defaultOptions.fabText;
-        if (!fabBackgroundColor.hasValue()) fabBackgroundColor = defaultOptions.fabBackgroundColor;
+        if (!fabBackgroundImage.hasValue()) fabBackgroundImage = defaultOptions.fabBackgroundImage;
         if (!textColor.hasValue()) textColor = defaultOptions.textColor;
         if (!fontSize.hasValue()) fontSize = defaultOptions.fontSize;
         if (!marginBottom.hasValue()) marginBottom = defaultOptions.marginBottom;

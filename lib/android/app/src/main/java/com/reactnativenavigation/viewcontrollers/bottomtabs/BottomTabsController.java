@@ -1,16 +1,17 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
-import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.react.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.ImageLoader;
+import com.reactnativenavigation.utils.ImageLoadingListenerAdapter;
 import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ParentController;
@@ -38,7 +40,6 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM;
 import static android.widget.RelativeLayout.CENTER_HORIZONTAL;
-import static android.widget.RelativeLayout.CENTER_IN_PARENT;
 import static com.reactnativenavigation.utils.CollectionUtils.forEach;
 import static com.reactnativenavigation.utils.CollectionUtils.map;
 
@@ -109,15 +110,20 @@ public class BottomTabsController extends ParentController implements AHBottomNa
             lp.height = (int)UiUtils.dpToPx(getActivity(), (float)initialOptions.bottomTabsOptions.fabButton.fabHeight.get(0));
             lp.setMargins(0,0,0, (int)UiUtils.dpToPx(getActivity(), (float)initialOptions.bottomTabsOptions.fabButton.marginBottom.get(0)));
             frameLayout.setLayoutParams(lp);
-            FloatingActionButton fab = new FloatingActionButton(getActivity());
+            ImageView imageView = new ImageView(getActivity());
             FrameLayout.LayoutParams fabLp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
-            fab.setLayoutParams(fabLp);
+            imageView.setLayoutParams(fabLp);
 
-            fab.setTag("fab");
-            fab.setCompatElevation(2);
-            fab.setBackgroundTintList(ColorStateList.valueOf(initialOptions.bottomTabsOptions.fabButton.fabBackgroundColor.get()));
+            imageView.setTag("fabImageBg");
+            if (initialOptions.bottomTabsOptions.fabButton.fabBackgroundImage.hasValue())
 
-            fab.setOnClickListener(new View.OnClickListener() {
+                imageLoader.loadIcon(getActivity(), initialOptions.bottomTabsOptions.fabButton.fabBackgroundImage.get(), new ImageLoadingListenerAdapter() {
+                @Override
+                public void onComplete(@NonNull Drawable drawable) {
+                    imageView.setImageBitmap(((BitmapDrawable)drawable).getBitmap());
+                }
+            });
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     eventEmitter.emitBottomTabFABSelected();
@@ -138,7 +144,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
                 textView.setElevation(20);
             }
 
-            frameLayout.addView(fab);
+            frameLayout.addView(imageView);
             frameLayout.addView(textView);
 
             return frameLayout;

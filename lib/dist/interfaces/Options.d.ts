@@ -446,6 +446,17 @@ export interface OptionsBottomTabs {
      * #### (Android specific)
      */
     elevation?: AndroidDensityNumber;
+    fabButton?: OptionsBottomTabsFab;
+}
+export interface OptionsBottomTabsFab {
+    FABHeight: number;
+    FABWidth: number;
+    FABText: string;
+    FABTextColor: Color;
+    FABBackgroundImage: ImageRequireSource;
+    FABFontFamily: FontFamily;
+    FABFontSize: number;
+    FABMarginBottom: number;
 }
 export interface OptionsBottomTab {
     /**

@@ -181,7 +181,9 @@ public class BottomTabsPresenter {
             } else {
                 bottomTabs.restoreBottomNavigation(false);
             }
-            centerFabLayout.setVisibility(View.VISIBLE);
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.VISIBLE);
+            }
         }
         if (options.visible.isFalse()) {
             if (options.animate.isTrueOrUndefined()) {
@@ -189,7 +191,9 @@ public class BottomTabsPresenter {
             } else {
                 bottomTabs.hideBottomNavigation(false);
             }
-            centerFabLayout.setVisibility(View.GONE);
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.GONE);
+            }
         }
         if (options.elevation.hasValue()) {
             bottomTabs.setUseElevation(true, options.elevation.get().floatValue());
