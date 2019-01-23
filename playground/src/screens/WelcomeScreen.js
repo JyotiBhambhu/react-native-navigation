@@ -148,19 +148,20 @@ class WelcomeScreen extends Component {
           ],
           options: {
             bottomTabs: {
-              backgroundColor: 'transparent',
+              backgroundColor: 'white',
               titleDisplayMode: 'alwaysShow',
               testID: testIDs.BOTTOM_TABS_ELEMENT,
               elevation: 10,
               notchRadius: 50,
+              visible: true,
               fabButton: {
                 FABHeight: 70,
                 FABWidth: 70,
                 FABText: 'SELL CAR',
                 FABTextColor: 'white',
-                FABBackgroundImage: require('../images/ic_sell_car.png'),
-                FABfontFamily: '',
+                FABFontFamily: '',
                 FABFontSize: 14,
+                FABBackgroundImage: require('../images/ic_sell_car.png'),
                 FABMarginBottom: 20,
               },
             }

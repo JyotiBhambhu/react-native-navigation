@@ -109,8 +109,9 @@
 	//half of the width
 	_FABButton.layer.cornerRadius = FABButtonWidth/2.0f;
 	
-	//set BackgroundColor of FABButton
-	[_FABButton setBackgroundColor:[[ColorParser parse:fabButton key:@"FABBackgroundColor"] getWithDefaultValue:[UIColor orangeColor]]];
+	Image *fabBackgroundImage = [ImageParser parse:fabButton key:@"FABBackgroundImage"];
+	UIImage *backgroundImage = [fabBackgroundImage getWithDefaultValue:nil];
+	[_FABButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
 	
 	//set Button Title
 	[_FABButton setTitle:[[TextParser parse:fabButton key:@"FABText"] getWithDefaultValue:@"Sell car"] forState:UIControlStateNormal];
@@ -120,13 +121,6 @@
 	
 	//set Button Title fontfamily
 	_FABButton.titleLabel.font = [UIFont fontWithName:[[TextParser parse:fabButton key:@"FABFontFamily"] getWithDefaultValue:[UIFont systemFontOfSize:12.0]] size:[[fabButton valueForKey:@"FABFontSize"] floatValue]];
-	
-	//add shadow on FABButton
-	_FABButton.layer.shadowColor = [UIColor blackColor].CGColor;
-	_FABButton.layer.shadowOffset = CGSizeMake(0, -2.5);
-	_FABButton.layer.shadowOpacity = 0.25;
-	_FABButton.layer.shadowRadius = 5;
-	_FABButton.layer.masksToBounds = NO;
 	
 	[_FABContainerView addSubview:_FABButton];
 }
