@@ -119,12 +119,18 @@ public class BottomTabsPresenter {
             } else {
                 bottomTabs.restoreBottomNavigation(false);
             }
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.VISIBLE);
+            }
         }
         if (options.visible.isFalse()) {
             if (options.animate.isTrueOrUndefined()) {
                 animator.hide(animations);
             } else {
                 bottomTabs.hideBottomNavigation(false);
+            }
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.GONE);
             }
         }
     }
