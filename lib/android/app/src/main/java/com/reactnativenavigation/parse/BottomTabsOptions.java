@@ -1,5 +1,7 @@
 package com.reactnativenavigation.parse;
 
+import android.util.Log;
+
 import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.parse.params.Colour;
 import com.reactnativenavigation.parse.params.Fraction;
@@ -14,14 +16,16 @@ import com.reactnativenavigation.parse.params.TitleDisplayMode;
 import com.reactnativenavigation.parse.parsers.BoolParser;
 import com.reactnativenavigation.parse.parsers.ColorParser;
 import com.reactnativenavigation.parse.parsers.FractionParser;
+import com.reactnativenavigation.parse.parsers.JSONParser;
 import com.reactnativenavigation.parse.parsers.NumberParser;
 import com.reactnativenavigation.parse.parsers.TextParser;
+import com.reactnativenavigation.utils.TypefaceLoader;
 
 import org.json.JSONObject;
 
 public class BottomTabsOptions {
 
-	public static BottomTabsOptions parse(JSONObject json) {
+	public static BottomTabsOptions parse(TypefaceLoader typefaceManager, JSONObject json) {
 		BottomTabsOptions options = new BottomTabsOptions();
 		if (json == null) return options;
 
@@ -34,7 +38,8 @@ public class BottomTabsOptions {
         options.elevation = FractionParser.parse(json, "elevation");
         options.testId = TextParser.parse(json, "testID");
         options.titleDisplayMode = TitleDisplayMode.fromString(json.optString("titleDisplayMode"));
-
+        options.fabButton = BottomTabCenterFab.parse(typefaceManager, json.optJSONObject("fabButton"));
+        options.notchRadius = NumberParser.parse(json, "notchRadius");
 		return options;
 	}
 
@@ -47,6 +52,8 @@ public class BottomTabsOptions {
 	public Text currentTabId = new NullText();
     public Text testId = new NullText();
     public TitleDisplayMode titleDisplayMode = TitleDisplayMode.UNDEFINED;
+    public BottomTabCenterFab fabButton = null;
+    public Number notchRadius = new NullNumber();
 
 	void mergeWith(final BottomTabsOptions other) {
 		if (other.currentTabId.hasValue()) currentTabId = other.currentTabId;
@@ -58,6 +65,8 @@ public class BottomTabsOptions {
         if (other.backgroundColor.hasValue()) backgroundColor = other.backgroundColor;
         if (other.testId.hasValue()) testId = other.testId;
         if (other.titleDisplayMode.hasValue()) titleDisplayMode = other.titleDisplayMode;
+        if (other.notchRadius.hasValue()) notchRadius = other.notchRadius;
+        if (other.fabButton != null) fabButton = other.fabButton;
     }
 
     void mergeWithDefault(final BottomTabsOptions defaultOptions) {
@@ -69,6 +78,8 @@ public class BottomTabsOptions {
         if (!elevation.hasValue()) elevation = defaultOptions.elevation;
         if (!backgroundColor.hasValue()) backgroundColor = defaultOptions.backgroundColor;
         if (!titleDisplayMode.hasValue()) titleDisplayMode = defaultOptions.titleDisplayMode;
+        if (!notchRadius.hasValue()) notchRadius = defaultOptions.notchRadius;
+        if (fabButton == null) fabButton = defaultOptions.fabButton;
     }
 
     public void clearOneTimeOptions() {

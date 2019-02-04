@@ -11,6 +11,7 @@ RCT_EXPORT_MODULE();
 static NSString* const AppLaunched				= @"RNN.AppLaunched";
 static NSString* const CommandCompleted			= @"RNN.CommandCompleted";
 static NSString* const BottomTabSelected		= @"RNN.BottomTabSelected";
+static NSString* const BottomTabFABSelected		= @"RNN.BottomTabFABSelected";
 static NSString* const ComponentDidAppear		= @"RNN.ComponentDidAppear";
 static NSString* const ComponentDidDisappear	= @"RNN.ComponentDidDisappear";
 static NSString* const NavigationButtonPressed	= @"RNN.NavigationButtonPressed";
@@ -29,7 +30,8 @@ static NSString* const PreviewCompleted         = @"RNN.PreviewCompleted";
 			 ModalDismissed,
 			 SearchBarUpdated,
 			 SearchBarCancelPressed,
-			 PreviewCompleted];
+			 PreviewCompleted,
+			 BottomTabFABSelected];
 }
 
 # pragma mark public
@@ -68,6 +70,10 @@ static NSString* const PreviewCompleted         = @"RNN.PreviewCompleted";
 									  @"selectedTabIndex": selectedTabIndex,
 									  @"unselectedTabIndex": unselectedTabIndex
 									  }];
+}
+
+-(void)sendBottomTabFABSelected {
+	[self send:BottomTabFABSelected body:@{}];
 }
 
 -(void)sendOnNavigationCommandCompletion:(NSString *)commandName params:(NSDictionary*)params {

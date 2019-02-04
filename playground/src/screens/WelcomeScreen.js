@@ -86,9 +86,10 @@ class WelcomeScreen extends Component {
                           }
                         },
                         bottomTab: {
+                          isFab: true,
                           text: 'Tab 1',
                           icon: require('../images/one.png'),
-                          selectedIcon: require('../images/one.png'),
+                          selectedIcon: require('../images/house.png'),
                           testID: testIDs.FIRST_TAB_BAR_BUTTON
                         }
                       }
@@ -116,8 +117,9 @@ class WelcomeScreen extends Component {
                 ],
                 options: {
                   bottomTab: {
-                    text: 'Tab 2',
+                    text: ' ',
                     icon: require('../images/two.png'),
+                    selectedIcon: require('../images/two_selected.png'),
                     testID: testIDs.SECOND_TAB_BAR_BUTTON
                   }
                 }
@@ -146,14 +148,28 @@ class WelcomeScreen extends Component {
           ],
           options: {
             bottomTabs: {
+              backgroundColor: 'white',
               titleDisplayMode: 'alwaysShow',
-              testID: testIDs.BOTTOM_TABS_ELEMENT
+              testID: testIDs.BOTTOM_TABS_ELEMENT,
+              elevation: 10,
+              notchRadius: 50,
+              visible: true,
+              fabButton: {
+                FABHeight: 70,
+                FABWidth: 70,
+                FABText: 'SELL CAR',
+                FABTextColor: 'white',
+                FABFontFamily: '',
+                FABFontSize: 14,
+                FABBackgroundImage: require('../images/ic_sell_car.png'),
+                FABMarginBottom: 20,
+              },
             }
           }
         }
       }
     });
-  }
+  };
 
   onClickSwitchToSideMenus = () => {
     Navigation.setRoot({
@@ -278,7 +294,7 @@ class WelcomeScreen extends Component {
         name: 'navigation.playground.PushedScreen',
         options: {
           layout: {
-            
+
           },
           topBar: {
             title: {

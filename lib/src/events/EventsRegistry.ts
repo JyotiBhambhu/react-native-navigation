@@ -38,6 +38,10 @@ export class EventsRegistry {
     return this.nativeEventsReceiver.registerBottomTabSelectedListener(callback);
   }
 
+  public registerBottomTabFABSelectedListener(callback: () => void): EmitterSubscription {
+    return this.nativeEventsReceiver.registerBottomTabFABSelectedListener(callback);
+  }
+
   public registerNavigationButtonPressedListener(callback: (event: NavigationButtonPressedEvent) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerNavigationButtonPressedListener(callback);
   }

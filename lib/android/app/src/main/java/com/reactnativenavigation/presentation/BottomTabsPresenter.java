@@ -1,12 +1,19 @@
 package com.reactnativenavigation.presentation;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.IntRange;
+import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState;
 import com.reactnativenavigation.anim.BottomTabsAnimator;
+import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigation;
 import com.reactnativenavigation.parse.AnimationsOptions;
 import com.reactnativenavigation.parse.BottomTabsOptions;
 import com.reactnativenavigation.parse.Options;
@@ -16,18 +23,26 @@ import com.reactnativenavigation.viewcontrollers.bottomtabs.BottomTabFinder;
 import com.reactnativenavigation.viewcontrollers.bottomtabs.TabSelector;
 import com.reactnativenavigation.views.BottomTabs;
 import com.reactnativenavigation.views.Component;
+import com.reactnativenavigation.views.bottomTabs.CurvedNotchCenter;
 
 import java.util.List;
 
 public class BottomTabsPresenter {
+    private Context context;
     private final BottomTabFinder bottomTabFinder;
     private final List<ViewController> tabs;
     private Options defaultOptions;
     private BottomTabs bottomTabs;
     private BottomTabsAnimator animator;
     private TabSelector tabSelector;
+    private FrameLayout centerFabLayout;
 
     public BottomTabsPresenter(List<ViewController> tabs, Options defaultOptions) {
+        this(null, tabs, defaultOptions);
+    }
+
+    public BottomTabsPresenter(Context context, List<ViewController> tabs, Options defaultOptions) {
+        this.context = context;
         this.tabs = tabs;
         this.defaultOptions = defaultOptions;
         this.bottomTabFinder = new BottomTabFinder(tabs);
@@ -40,6 +55,14 @@ public class BottomTabsPresenter {
     public void bindView(BottomTabs bottomTabs, TabSelector tabSelector) {
         this.bottomTabs = bottomTabs;
         this.tabSelector = tabSelector;
+        this.centerFabLayout = null;
+        animator = new BottomTabsAnimator(bottomTabs);
+    }
+
+    public void bindView(BottomTabs bottomTabs, TabSelector tabSelector, FrameLayout centerFabLayout) {
+        this.bottomTabs = bottomTabs;
+        this.tabSelector = tabSelector;
+        this.centerFabLayout = centerFabLayout;
         animator = new BottomTabsAnimator(bottomTabs);
     }
 
@@ -96,12 +119,18 @@ public class BottomTabsPresenter {
             } else {
                 bottomTabs.restoreBottomNavigation(false);
             }
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.VISIBLE);
+            }
         }
         if (options.visible.isFalse()) {
             if (options.animate.isTrueOrUndefined()) {
                 animator.hide(animations);
             } else {
                 bottomTabs.hideBottomNavigation(false);
+            }
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.GONE);
             }
         }
     }
@@ -137,8 +166,12 @@ public class BottomTabsPresenter {
     }
 
     private void applyBottomTabsOptions(BottomTabsOptions options, AnimationsOptions animationsOptions) {
-        bottomTabs.setTitleState(options.titleDisplayMode.get(TitleState.SHOW_WHEN_ACTIVE));
-        bottomTabs.setBackgroundColor(options.backgroundColor.get(Color.WHITE));
+        bottomTabs.setTitleState(options.titleDisplayMode.get(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE));
+        if (options.notchRadius.get(0) > 0) {
+            bottomTabs.setBackground(new CurvedNotchCenter(Color.WHITE, options.notchRadius.get(0)));
+        } else {
+            bottomTabs.setBackgroundColor(options.backgroundColor.get(Color.WHITE));
+        }
         if (options.currentTabIndex.hasValue()) {
             int tabIndex = options.currentTabIndex.get();
             if (tabIndex >= 0) tabSelector.selectTab(tabIndex);
@@ -154,6 +187,9 @@ public class BottomTabsPresenter {
             } else {
                 bottomTabs.restoreBottomNavigation(false);
             }
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.VISIBLE);
+            }
         }
         if (options.visible.isFalse()) {
             if (options.animate.isTrueOrUndefined()) {
@@ -161,9 +197,13 @@ public class BottomTabsPresenter {
             } else {
                 bottomTabs.hideBottomNavigation(false);
             }
+            if (centerFabLayout != null) {
+                centerFabLayout.setVisibility(View.GONE);
+            }
         }
         if (options.elevation.hasValue()) {
             bottomTabs.setUseElevation(true, options.elevation.get().floatValue());
         }
+
     }
 }

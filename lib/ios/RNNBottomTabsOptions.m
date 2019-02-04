@@ -19,7 +19,8 @@
 	self.currentTabId = [TextParser parse:dict key:@"currentTabId"];
 	self.barStyle = [TextParser parse:dict key:@"barStyle"];
 	self.fontFamily = [TextParser parse:dict key:@"fontFamily"];
-	
+	self.notchRadius = [IntNumberParser parse:dict key:@"notchRadius"];;
+	self.fabButton = [DictionaryParser parse:dict key:@"fabButton"];
 	return self;
 }
 
