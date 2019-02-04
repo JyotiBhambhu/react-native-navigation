@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.NonNull;
@@ -61,22 +62,17 @@ class BottomBarNotchFill extends Drawable {
         mPath.reset();
         mUpperPath.reset();
         mUpperPath.moveTo(0, 0);
-        mUpperPath.lineTo(mFirstCurveStartPoint.x, mFirstCurveStartPoint.y);
-
-        mUpperPath.cubicTo(mFirstCurveStartPoint.x, mFirstCurveStartPoint.y,
-                mFirstCurveControlPoint2.x, mFirstCurveControlPoint2.y,
-                mFirstCurveEndPoint.x, mFirstCurveEndPoint.y);
-
-        mUpperPath.cubicTo(mFirstCurveEndPoint.x, mFirstCurveEndPoint.y,
-                mSecondCurveControlPoint1.x, mSecondCurveControlPoint1.y,
-                mSecondCurveEndPoint.x, mSecondCurveEndPoint.y);
+        mUpperPath.lineTo((mNavigationBarWidth / 2) - (CURVE_CIRCLE_RADIUS), 0);
+        mUpperPath.addArc(new RectF((mNavigationBarWidth / 2) - CURVE_CIRCLE_RADIUS, -CURVE_CIRCLE_RADIUS,
+                        (mNavigationBarWidth / 2) + CURVE_CIRCLE_RADIUS, CURVE_CIRCLE_RADIUS),
+                -180, -180);
 
         mUpperPath.lineTo(mNavigationBarWidth, 0);
 
         mPath.addPath(mUpperPath);
         mPath.lineTo(mNavigationBarWidth, mNavigationBarHeight);
         mPath.lineTo(0, mNavigationBarHeight);
-
+        mPath.lineTo(0, 0);
         mPath.close();
 
 
@@ -106,17 +102,7 @@ class BottomBarNotchUpperStroke extends Drawable {
     private Paint mStrokePaint;
     private int CURVE_CIRCLE_RADIUS;
 
-    public Point mFirstCurveStartPoint = new Point();
-    public Point mFirstCurveEndPoint = new Point();
-    public Point mFirstCurveControlPoint2 = new Point();
-    public Point mFirstCurveControlPoint1 = new Point();
-
-    public Point mSecondCurveStartPoint = new Point();
-    public Point mSecondCurveEndPoint = new Point();
-    public Point mSecondCurveControlPoint1 = new Point();
-    public Point mSecondCurveControlPoint2 = new Point();
-    public int mNavigationBarWidth;
-    public int mNavigationBarHeight;
+    private int mNavigationBarWidth;
 
     public BottomBarNotchUpperStroke(int color, int notchRadius) {
         CURVE_CIRCLE_RADIUS = notchRadius;
@@ -131,30 +117,13 @@ class BottomBarNotchUpperStroke extends Drawable {
     @Override
     public void draw(@NonNull Canvas canvas) {
         mNavigationBarWidth = getBounds().width();
-        mNavigationBarHeight = getBounds().height();
-        mFirstCurveStartPoint.set((mNavigationBarWidth / 2) - (CURVE_CIRCLE_RADIUS * 2) - (10), 0);
-        mFirstCurveEndPoint.set(mNavigationBarWidth / 2, 2*CURVE_CIRCLE_RADIUS + (CURVE_CIRCLE_RADIUS / 4));
-        mSecondCurveStartPoint = mFirstCurveEndPoint;
-        mSecondCurveEndPoint.set((mNavigationBarWidth / 2) + (CURVE_CIRCLE_RADIUS * 2) + (CURVE_CIRCLE_RADIUS / 3), 0);
-
-        mFirstCurveControlPoint2.set(mFirstCurveEndPoint.x - (CURVE_CIRCLE_RADIUS * 2), mFirstCurveEndPoint.y);
-
-        mSecondCurveControlPoint1.set(mSecondCurveStartPoint.x + (CURVE_CIRCLE_RADIUS * 2), mSecondCurveStartPoint.y);
-
         mUpperPath.reset();
         mUpperPath.moveTo(0, 0);
-        mUpperPath.lineTo(mFirstCurveStartPoint.x, mFirstCurveStartPoint.y);
-
-        mUpperPath.cubicTo(mFirstCurveStartPoint.x, mFirstCurveStartPoint.y,
-                mFirstCurveControlPoint2.x, mFirstCurveControlPoint2.y,
-                mFirstCurveEndPoint.x, mFirstCurveEndPoint.y);
-
-        mUpperPath.cubicTo(mFirstCurveEndPoint.x, mFirstCurveEndPoint.y,
-                mSecondCurveControlPoint1.x, mSecondCurveControlPoint1.y,
-                mSecondCurveEndPoint.x, mSecondCurveEndPoint.y);
-
+        mUpperPath.lineTo((mNavigationBarWidth / 2) - (CURVE_CIRCLE_RADIUS), 0);
+        mUpperPath.addArc(new RectF((mNavigationBarWidth / 2) - CURVE_CIRCLE_RADIUS, -CURVE_CIRCLE_RADIUS,
+                (mNavigationBarWidth / 2) + CURVE_CIRCLE_RADIUS, CURVE_CIRCLE_RADIUS),
+                -180, -180);
         mUpperPath.lineTo(mNavigationBarWidth, 0);
-
         canvas.drawPath(mUpperPath, mStrokePaint);
     }
 
