@@ -38,7 +38,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.libs.ahbottomnavigation.notification.AHNotification;
 import com.reactnativenavigation.libs.ahbottomnavigation.notification.AHNotificationHelper;
@@ -1168,7 +1167,7 @@ public class AHBottomNavigation extends FrameLayout {
 	 * @param activeSize in sp
 	 */
 	public void setTitleActiveTextSizeInSp(int index, Float activeSize) {
-        if (AHHelper.equals(titleActiveTextSize.get(index), activeSize)) return;
+        if (activeSize == null || AHHelper.equals(titleActiveTextSize.get(index), activeSize)) return;
 		this.titleActiveTextSize.set(index, (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, activeSize, resources.getDisplayMetrics())));
 		createItems();
 	}
@@ -1179,7 +1178,7 @@ public class AHBottomNavigation extends FrameLayout {
      * @param inactiveSize in sp
      */
     public void setTitleInactiveTextSizeInSp(int index, Float inactiveSize) {
-        if (AHHelper.equals(titleInactiveTextSize.get(index), inactiveSize)) return;
+        if (inactiveSize == null || AHHelper.equals(titleInactiveTextSize.get(index), inactiveSize)) return;
         this.titleInactiveTextSize.set(index, (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, inactiveSize, resources.getDisplayMetrics())));
         createItems();
     }

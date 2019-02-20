@@ -3,14 +3,10 @@ package com.reactnativenavigation.presentation;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.IntRange;
-import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.reactnativenavigation.anim.BottomTabsAnimator;
 import com.reactnativenavigation.libs.ahbottomnavigation.AHBottomNavigation;
