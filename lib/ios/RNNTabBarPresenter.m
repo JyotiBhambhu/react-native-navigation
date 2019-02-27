@@ -75,7 +75,7 @@
 	notchView.layer.masksToBounds = YES;
 	
 	[tabBarController.view addSubview:_FABContainerView];
-	
+	[tabBarController.view bringSubviewToFront:_FABContainerView];
 	
 	
 }
@@ -182,6 +182,7 @@
 		[_FABContainerView setHidden:!newOptions.bottomTabs.visible.get];
 		[_FABButton setHidden:!newOptions.bottomTabs.visible.get];
 		[tabBarController rnn_setTabBarVisible:newOptions.bottomTabs.visible.get];
+		[tabBarController.view bringSubviewToFront:_FABContainerView];
 	}
 	
 }
