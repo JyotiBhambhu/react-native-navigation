@@ -164,7 +164,7 @@ public class BottomTabsPresenter {
     private void applyBottomTabsOptions(BottomTabsOptions options, AnimationsOptions animationsOptions) {
         bottomTabs.setTitleState(options.titleDisplayMode.get(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE));
         if (options.notchRadius.get(0) > 0) {
-            bottomTabs.setBackground(new CurvedNotchCenter(Color.WHITE, options.notchRadius.get(0)));
+            bottomTabs.setBackground(new CurvedNotchCenter(Color.WHITE, (int)UiUtils.pxToDp( context, options.notchRadius.get(0))));
         } else {
             bottomTabs.setBackgroundColor(options.backgroundColor.get(Color.WHITE));
         }
