@@ -141,6 +141,7 @@
 	[_FABContainerView setHidden:!options.bottomTabs.visible.get];
 	[_FABButton setHidden:!options.bottomTabs.visible.get];
 	[tabBarController rnn_setTabBarVisible:[options.bottomTabs.visible getWithDefaultValue:YES]];
+	[self alignFABButtonOnView:tabBarController.view];
 }
 
 - (void)mergeOptions:(RNNNavigationOptions *)newOptions currentOptions:(RNNNavigationOptions *)currentOptions defaultOptions:(RNNNavigationOptions *)defaultOptions {
@@ -182,9 +183,17 @@
 		[_FABContainerView setHidden:!newOptions.bottomTabs.visible.get];
 		[_FABButton setHidden:!newOptions.bottomTabs.visible.get];
 		[tabBarController rnn_setTabBarVisible:newOptions.bottomTabs.visible.get];
-		[tabBarController.view bringSubviewToFront:_FABContainerView];
+		[self alignFABButtonOnView:tabBarController.view];
 	}
 	
+}
+
+- (void)alignFABButtonOnView: (UIView*)tabView {
+	
+	[tabView bringSubviewToFront:_FABContainerView];
+	[_FABContainerView bringSubviewToFront:_FABButton];
+	_FABContainerView.layer.zPosition = 1;
+	_FABButton.layer.zPosition = 1;
 }
 
 @end
