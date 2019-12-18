@@ -98,7 +98,9 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     }
 
     private FrameLayout createCenterFab() {
-        if (initialOptions.bottomTabsOptions.fabButton != null) {
+        if (initialOptions.bottomTabsOptions.fabButton != null 
+	    	&& initialOptions.bottomTabsOptions.fabButton.fabText != null 
+	    	&& initialOptions.bottomTabsOptions.fabButton.fabText.hasValue()) {
             FrameLayout frameLayout = new FrameLayout(getActivity());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 frameLayout.setElevation(100);
